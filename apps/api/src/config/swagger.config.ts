@@ -5,7 +5,7 @@ import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
  * Utility type for defining API response examples
  */
 export interface ApiResponseOptions {
-    example: any;
+    example: never;
     description?: string;
 }
 

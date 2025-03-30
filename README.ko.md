@@ -13,6 +13,67 @@
   - **client** - 고객 및 가맹점 인터페이스를 위한 Next.js 프론트엔드
 - **packages/** - 애플리케이션에서 임포트할 수 있는 공유 라이브러리 및 유틸리티
 
+## API 엔드포인트
+
+### 인증 엔드포인트
+- `POST /api/v1/auth/register` - 새 고객 계정 등록
+  - 요청: email, password, name(선택)
+  - 응답: id, email, name, role
+
+- `POST /api/v1/auth/register/merchant` - 새 가맹점 계정 등록
+  - 요청: email, password, name(선택)
+  - 응답: id, email, name, role
+
+- `POST /api/v1/auth/login` - JWT 토큰 발급을 위한 로그인
+  - 요청: email, password
+  - 응답: access_token, 사용자 정보
+
+- `GET /api/v1/auth/me` - 현재 사용자 프로필 조회
+  - 응답: id, email, name, role, createdAt
+
+- `GET /api/v1/auth/admin` - 관리자 전용 엔드포인트
+  - 응답: 관리자 접근 확인
+
+- `GET /api/v1/auth/merchant` - 가맹점 전용 엔드포인트
+  - 응답: 가맹점 접근 확인
+
+### 고객 엔드포인트
+- `GET /api/v1/customer/points` - 현재 포인트 잔액 조회
+  - 응답: balance, updatedAt
+
+- `GET /api/v1/customer/virtual-account` - 가상계좌 정보 조회
+  - 응답: accountNumber, bankName, accountHolderName, createdAt
+
+- `GET /api/v1/customer/transactions` - 거래 내역 조회
+  - 쿼리 파라미터: types[], statuses[], startDate, endDate, limit, offset
+  - 응답: transactions[], pagination 정보
+
+- `POST /api/v1/customer/withdrawals/request` - 출금 요청
+  - 요청: amount, bankCode, accountNumber, accountHolder, description(선택)
+  - 응답: transactionId, status, message
+
+### 가맹점 엔드포인트
+- `POST /api/v1/merchant/virtual-accounts` - 사용자를 위한 가상계좌 등록
+  - 요청: email
+  - 응답: accountNumber, bankName, accountHolderName, createdAt
+
+- `GET /api/v1/merchant/transactions/:moid` - 거래 검색
+  - 경로 파라미터: moid (가맹점 주문 ID)
+  - 응답: 거래 상세 정보
+
+### 웹훅 엔드포인트
+- `POST /api/v1/webhooks/ezpg/deposit-notification` - 입금 알림 처리
+  - 요청: mid, vacctNo, bankCd, amt, depositDt, depositTm, trNo, depositNm(선택), bankTrId(선택)
+  - 응답: 성공 시 "0000", 실패 시 "9999"
+
+- `POST /api/v1/webhooks/ezpg/withdrawal-notification` - 출금 알림 처리
+  - 요청: mid, natvTrNo, moid, resultCd, resultMsg, amt, bankCd, accntNo, accntNm, trDt, trTm, bankTrId(선택)
+  - 응답: 성공 시 "0000", 실패 시 "9999"
+
+### 헬스 체크
+- `GET /api/v1/health` - API 헬스 체크 엔드포인트
+  - 응답: status, message, timestamp, version
+
 ## 시작하기
 
 ### 사전 요구사항
@@ -104,31 +165,6 @@ API는 표준화된 오류 응답을 사용합니다:
 - 404: Not Found - 리소스가 존재하지 않음
 - 409: Conflict - 리소스 충돌
 - 500: Internal Server Error - 서버 측 오류
-
-### API 엔드포인트
-
-#### 인증
-
-- `POST /api/v1/auth/register`: 새 고객 등록
-- `POST /api/v1/auth/login`: JWT 토큰을 받기 위한 로그인
-- `GET /api/v1/auth/me`: 현재 사용자 프로필 조회
-
-#### 고객
-
-- `GET /api/v1/customer/points`: 현재 포인트 잔액 조회
-- `GET /api/v1/customer/virtual-account`: 가상계좌 정보 조회
-- `POST /api/v1/customer/withdrawals/request`: 출금 요청
-- `GET /api/v1/customer/transactions`: 거래 내역 조회
-
-#### 가맹점
-
-- `POST /api/v1/merchant/virtual-accounts`: 사용자를 위한 가상계좌 등록
-- `GET /api/v1/merchant/transactions/:moid`: 거래 검색
-
-#### 웹훅
-
-- `POST /api/v1/webhooks/ezpg/deposit-notification`: 입금 알림 처리
-- `POST /api/v1/webhooks/ezpg/withdrawal-notification`: 출금 알림 처리
 
 ## 테스트
 

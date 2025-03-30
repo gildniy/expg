@@ -13,6 +13,67 @@ This is a Turborepo-based monorepo with the standard directory structure:
   - **client** - Next.js frontend for customer and merchant interfaces
 - **packages/** - Shared libraries and utilities that can be imported by applications
 
+## API Endpoints
+
+### Authentication Endpoints
+- `POST /api/v1/auth/register` - Register a new customer account
+  - Request: email, password, name(optional)
+  - Response: id, email, name, role
+
+- `POST /api/v1/auth/register/merchant` - Register a new merchant account
+  - Request: email, password, name(optional)
+  - Response: id, email, name, role
+
+- `POST /api/v1/auth/login` - Login to get JWT token
+  - Request: email, password
+  - Response: access_token, user details
+
+- `GET /api/v1/auth/me` - Get current user profile
+  - Response: id, email, name, role, createdAt
+
+- `GET /api/v1/auth/admin` - Admin only endpoint
+  - Response: Admin access confirmation
+
+- `GET /api/v1/auth/merchant` - Merchant only endpoint
+  - Response: Merchant access confirmation
+
+### Customer Endpoints
+- `GET /api/v1/customer/points` - Get current point balance
+  - Response: balance, updatedAt
+
+- `GET /api/v1/customer/virtual-account` - Get virtual account details
+  - Response: accountNumber, bankName, accountHolderName, createdAt
+
+- `GET /api/v1/customer/transactions` - Get transaction history
+  - Query Parameters: types[], statuses[], startDate, endDate, limit, offset
+  - Response: transactions[], pagination details
+
+- `POST /api/v1/customer/withdrawals/request` - Request a withdrawal
+  - Request: amount, bankCode, accountNumber, accountHolder, description(optional)
+  - Response: transactionId, status, message
+
+### Merchant Endpoints
+- `POST /api/v1/merchant/virtual-accounts` - Register a virtual account for a user
+  - Request: email
+  - Response: accountNumber, bankName, accountHolderName, createdAt
+
+- `GET /api/v1/merchant/transactions/:moid` - Search for a transaction
+  - Path Parameter: moid (Merchant Order ID)
+  - Response: transaction details
+
+### Webhook Endpoints
+- `POST /api/v1/webhooks/ezpg/deposit-notification` - Handle deposit notifications
+  - Request: mid, vacctNo, bankCd, amt, depositDt, depositTm, trNo, depositNm(optional), bankTrId(optional)
+  - Response: "0000" for success, "9999" for failure
+
+- `POST /api/v1/webhooks/ezpg/withdrawal-notification` - Handle withdrawal notifications
+  - Request: mid, natvTrNo, moid, resultCd, resultMsg, amt, bankCd, accntNo, accntNm, trDt, trTm, bankTrId(optional)
+  - Response: "0000" for success, "9999" for failure
+
+### Health Check
+- `GET /api/v1/health` - API health check endpoint
+  - Response: status, message, timestamp, version
+
 ## Getting Started
 
 ### Prerequisites
@@ -104,31 +165,6 @@ Common HTTP status codes:
 - 404: Not Found - Resource doesn't exist
 - 409: Conflict - Resource conflict
 - 500: Internal Server Error - Server-side error
-
-### API Endpoints
-
-#### Auth
-
-- `POST /api/v1/auth/register`: Register a new customer
-- `POST /api/v1/auth/login`: Login to get a JWT token
-- `GET /api/v1/auth/me`: Get the current user profile
-
-#### Customer
-
-- `GET /api/v1/customer/points`: Get the current point balance
-- `GET /api/v1/customer/virtual-account`: Get virtual account details
-- `POST /api/v1/customer/withdrawals/request`: Request a withdrawal 
-- `GET /api/v1/customer/transactions`: Get transaction history
-
-#### Merchant
-
-- `POST /api/v1/merchant/virtual-accounts`: Register a virtual account for a user
-- `GET /api/v1/merchant/transactions/:moid`: Search for a transaction
-
-#### Webhooks
-
-- `POST /api/v1/webhooks/ezpg/deposit-notification`: Handle deposit notifications
-- `POST /api/v1/webhooks/ezpg/withdrawal-notification`: Handle withdrawal notifications
 
 ## Testing
 
