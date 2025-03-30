@@ -1,5 +1,5 @@
 import {INestApplication} from '@nestjs/common';
-import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
+import {DocumentBuilder, OpenAPIObject, SwaggerModule} from '@nestjs/swagger';
 
 /**
  * Utility type for defining API response examples
@@ -21,6 +21,12 @@ export function createApiResponse(options: ApiResponseOptions) {
     };
 }
 
+let document: OpenAPIObject;
+
+export function getSwaggerDocument(): OpenAPIObject {
+    return document;
+}
+
 /**
  * Sets up Swagger documentation for the API
  * @param app - The NestJS application instance
@@ -34,6 +40,7 @@ Payment integration API for virtual accounts and point system management.
 ## Quick Links
 - [API Status](http://localhost:3001/api/v1/health)
 - [Support](mailto:support@ez-pg.com)
+- [Postman Collection](/api/v1/docs-json)
 
 ## Authentication
 Bearer Token required for all endpoints except health check.
@@ -48,7 +55,7 @@ Get your token at \`POST /auth/login\`
         .addTag('health', 'Health check')
         .build();
 
-    const document = SwaggerModule.createDocument(app, config);
+    document = SwaggerModule.createDocument(app, config);
 
     SwaggerModule.setup('api/v1/docs', app, document, {
         swaggerOptions: {
@@ -59,5 +66,6 @@ Get your token at \`POST /auth/login\`
             filter: true,
         },
         customCss: '.swagger-ui .topbar { display: none }',
+        customSiteTitle: 'EZPG API Documentation',
     });
 }

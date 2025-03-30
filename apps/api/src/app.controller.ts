@@ -1,7 +1,9 @@
-import {Controller, Get} from '@nestjs/common';
+import {Controller, Get, Header, Res} from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
 import {ApiProperty} from '@nestjs/swagger';
 import {InternalServerErrorResponseDto} from '@/common';
+import {Response} from 'express';
+import {getSwaggerDocument} from '@/config';
 
 export class HealthResponseDto {
     @ApiProperty({example: 'ok'})
@@ -31,5 +33,14 @@ export class AppController {
             timestamp: new Date().toISOString(),
             version: '1.0',
         };
+    }
+
+    @Get('docs-json')
+    @Header('Content-Type', 'application/json')
+    @ApiOperation({summary: 'Get OpenAPI specification'})
+    getOpenApiSpec(@Res() response: Response) {
+        const document = getSwaggerDocument();
+        response.header('Content-Disposition', 'attachment; filename=ezpg-api-spec.json');
+        return response.send(document);
     }
 }
