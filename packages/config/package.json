@@ -1,0 +1,16 @@
+{
+  "name": "@ezpg/config",
+  "version": "0.1.0",
+  "description": "Shared configuration for EZPG applications",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "private": true,
+  "files": [
+    "eslint-preset.js",
+    "jest-preset.js"
+  ],
+  "dependencies": {
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0"
+  }
+} 

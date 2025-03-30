@@ -1,33 +1,40 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { setupSwagger } from './config/swagger.config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule);
+    
+    // Enable CORS
+    app.enableCors();
+    
+    // Set global prefix
+    app.setGlobalPrefix('api/v1');
+    
+    // Set up global validation pipe
+    app.useGlobalPipes(
+        new ValidationPipe({
+            whitelist: true,
+            transform: true,
+            forbidNonWhitelisted: true,
+            transformOptions: {
+                enableImplicitConversion: true,
+            },
+        }),
+    );
 
-  // Enable CORS
-  app.enableCors();
+    // Set up Swagger documentation
+    setupSwagger(app);
 
-  // Enable validation pipes
-  app.useGlobalPipes(new ValidationPipe());
-
-  // Configure Swagger
-  const config = new DocumentBuilder()
-    .setTitle('EZPG API')
-    .setDescription('The EZPG API description')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
-
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
-
-  // Start the server
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
-  console.log(`Application is running on: http://localhost:${port}`);
-  console.log(`Swagger documentation is available at: http://localhost:${port}/api`);
+    const port = process.env.PORT || 3001;
+    await app.listen(port);
+    
+    // Log application URLs
+    const baseUrl = `http://localhost:${port}`;
+    console.log(`Application is running on: ${baseUrl}/api/v1`);
+    console.log(`Swagger documentation: ${baseUrl}/api/v1/docs`);
+    console.log(`API Health check: ${baseUrl}/api/v1/health`);
 }
 
 bootstrap();

@@ -1,4 +1,0 @@
-# Ignore test files with unused variables
-test/admin-user.controller.spec.ts
-test/auth.service.spec.ts
-test/admin-user.e2e-spec.ts 

@@ -1,0 +1,168 @@
+2025-03-30T15:54:26.866203Z  WARN build:resolve_lockfile: turborepo_repository::package_graph::builder: Issues occurred when constructing package graph. Turbo will function, but some features may not be available: could not resolve workspaces: io error: No such file or directory (os error 2)
+2025-03-30T15:54:26.968099Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/1.cookie")}
+2025-03-30T15:54:26.968107Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T15:54:30.767272Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/client/next-env.d.ts")}
+2025-03-30T15:54:30.767301Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/client"), path: AnchoredSystemPathBuf("apps/client") }}))
+2025-03-30T16:01:29.769943Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/merchant/merchant.service.ts")}
+2025-03-30T16:01:29.773126Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:01:55.245092Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:01:55.245421Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:02:14.444159Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/webhooks/webhooks.service.ts")}
+2025-03-30T16:02:14.444183Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:02:35.042311Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/integration/prisma.service.spec.ts")}
+2025-03-30T16:02:35.042338Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:02:52.641320Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/integration/prisma.service.spec.ts")}
+2025-03-30T16:02:52.641343Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:02:52.642233Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:02:55.041605Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/prisma/prisma.service.ts")}
+2025-03-30T16:02:55.041613Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:03:06.340305Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/prisma/prisma.service.ts")}
+2025-03-30T16:03:06.340334Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:03:14.840581Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/2.cookie")}
+2025-03-30T16:03:14.840596Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:06:45.828527Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/prisma/prisma.service.ts")}
+2025-03-30T16:06:45.828556Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:06:45.828586Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:09:14.348580Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/unit/merchant/merchant.controller.spec.ts")}
+2025-03-30T16:09:14.350284Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:09:27.921691Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/unit/merchant/merchant.service.spec.ts")}
+2025-03-30T16:09:27.922032Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:09:42.120043Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/unit/merchant/merchant.controller.spec.ts")}
+2025-03-30T16:09:42.120064Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:09:42.150602Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:09:51.019615Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/unit/merchant/merchant.service.spec.ts")}
+2025-03-30T16:09:51.019696Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:09:54.319013Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/unit/merchant/merchant.service.spec.ts")}
+2025-03-30T16:09:54.319124Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:09:54.344583Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:10:06.319488Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/unit/merchant/merchant.service.spec.ts")}
+2025-03-30T16:10:06.319597Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:10:08.719340Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/unit/merchant/merchant.service.spec.ts")}
+2025-03-30T16:10:08.719355Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:10:08.732655Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:10:23.317696Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/e2e/webhooks.e2e-spec.ts")}
+2025-03-30T16:10:23.317732Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:10:35.717669Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/e2e/webhooks.e2e-spec.ts")}
+2025-03-30T16:10:35.717691Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:10:35.718295Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:10:41.217128Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/e2e/webhooks.e2e-spec.ts")}
+2025-03-30T16:10:41.217148Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:10:48.216880Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/e2e/webhooks.e2e-spec.ts")}
+2025-03-30T16:10:48.216902Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:10:48.241976Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:13:06.309747Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:13:06.309777Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:13:06.322657Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:13:06.408502Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:13:06.408512Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:13:06.408537Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:13:28.708303Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:13:28.708321Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:13:48.808788Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:13:48.808810Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:14:05.407040Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:14:05.407067Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:14:17.305715Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:14:17.305779Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:14:29.005666Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:14:29.005692Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:14:41.204159Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:14:41.204184Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:14:53.404367Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:14:53.404384Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:15:01.403705Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:15:01.403729Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:15:34.100381Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/customer/customer.service.ts")}
+2025-03-30T16:15:34.100397Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:15:34.100422Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:16:29.898154Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/unit/merchant/merchant.service.spec.ts")}
+2025-03-30T16:16:29.898179Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:16:29.952924Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:16:29.999009Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/unit/merchant/merchant.service.spec.ts")}
+2025-03-30T16:16:29.999019Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:16:29.999046Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:16:56.798323Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/e2e/webhooks.e2e-spec.ts")}
+2025-03-30T16:16:56.798387Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:17:17.296933Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/e2e/webhooks.e2e-spec.ts")}
+2025-03-30T16:17:17.296953Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:17:30.497274Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/e2e/webhooks.e2e-spec.ts")}
+2025-03-30T16:17:30.497821Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:17:44.994306Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/e2e/webhooks.e2e-spec.ts")}
+2025-03-30T16:17:44.994333Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:18:28.492197Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/unit/merchant/merchant.controller.spec.ts")}
+2025-03-30T16:18:28.492214Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:18:28.492234Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:18:40.192515Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/test/e2e/webhooks.e2e-spec.ts")}
+2025-03-30T16:18:40.192532Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:18:40.192558Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:20:52.715352Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.md")}
+2025-03-30T16:20:52.717549Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:21:26.084265Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.md")}
+2025-03-30T16:21:26.084319Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:24:37.773684Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/README.md")}
+2025-03-30T16:24:37.775014Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:28:15.984463Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.md")}
+2025-03-30T16:28:15.986280Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:29:27.158165Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.ko.md")}
+2025-03-30T16:29:27.158211Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:29:29.058897Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.ko.md")}
+2025-03-30T16:29:29.058923Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:30:02.256609Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.ko.md")}
+2025-03-30T16:30:02.256649Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:30:11.755308Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.md")}
+2025-03-30T16:30:11.755324Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:30:52.453578Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.en.md"), AnchoredSystemPathBuf("README.md")}
+2025-03-30T16:30:52.453633Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:37:47.658653Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.en.md"), AnchoredSystemPathBuf("README.md")}
+2025-03-30T16:37:47.661646Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:38:05.431444Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.md~"), AnchoredSystemPathBuf("README.md"), AnchoredSystemPathBuf("README.ko.md"), AnchoredSystemPathBuf("README.ko.md~")}
+2025-03-30T16:38:05.431534Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:40:31.949238Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.ko.md~"), AnchoredSystemPathBuf("README.ko.md")}
+2025-03-30T16:40:31.954050Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:40:35.323766Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("README.md~"), AnchoredSystemPathBuf("README.md")}
+2025-03-30T16:40:35.323782Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T16:47:15.731877Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/app.controller.ts"), AnchoredSystemPathBuf("apps/api/src/app.controller.ts~")}
+2025-03-30T16:47:15.734745Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:48:55.418286Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/app.controller.ts~"), AnchoredSystemPathBuf("apps/api/src/app.controller.ts")}
+2025-03-30T16:48:55.419987Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:52:28.709200Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/config/swagger.config.ts")}
+2025-03-30T16:52:28.710769Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:52:42.384648Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/app.module.ts")}
+2025-03-30T16:52:42.384679Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:53:51.081279Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/config/swagger.config.ts")}
+2025-03-30T16:53:51.081301Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:53:51.081327Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:53:53.181572Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/config/swagger.config.ts")}
+2025-03-30T16:53:53.181596Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:53:53.223917Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:55:48.975880Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/config/swagger.config.ts")}
+2025-03-30T16:55:48.975902Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:56:05.574331Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/config/swagger.config.ts")}
+2025-03-30T16:56:05.574409Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:56:24.173738Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/config/swagger.config.ts")}
+2025-03-30T16:56:24.173760Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:56:31.073172Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/config/swagger.config.ts")}
+2025-03-30T16:56:31.073212Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:57:54.868385Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/config/swagger.config.ts")}
+2025-03-30T16:57:54.868448Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:58:10.967669Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/config/swagger.config.ts")}
+2025-03-30T16:58:10.967737Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:58:11.051592Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:58:13.767912Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/config/swagger.config.ts")}
+2025-03-30T16:58:13.767933Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:58:13.806444Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T16:58:46.465244Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/main.ts")}
+2025-03-30T16:58:46.465267Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:59:26.463953Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/main.ts")}
+2025-03-30T16:59:26.463982Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T16:59:26.468462Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-03-30T17:04:02.912065Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/auth/auth.module.ts")}
+2025-03-30T17:04:02.915448Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T17:04:08.786324Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/auth/auth.module.ts")}
+2025-03-30T17:04:08.786359Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T17:05:05.685108Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/auth/strategies/jwt.strategy.ts~"), AnchoredSystemPathBuf("apps/api/.env~"), AnchoredSystemPathBuf("apps/api/src/auth/strategies/jwt.strategy.ts")}
+2025-03-30T17:05:05.685151Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))
+2025-03-30T17:05:32.485371Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".env~")}
+2025-03-30T17:05:32.485432Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-03-30T17:10:09.907350Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/api/src/merchant/merchant.service.ts"), AnchoredSystemPathBuf("apps/api/src/merchant/merchant.service.ts~")}
+2025-03-30T17:10:09.909562Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@ezpg/api"), path: AnchoredSystemPathBuf("apps/api") }}))

@@ -1,141 +1,98 @@
-// This is your Prisma schema file
-// Learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
-  // Needed when using Supabase for direct connections
-  previewFeatures = ["multiSchema"]
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  // Used for direct connections to the database in Supabase
-  directUrl = env("DIRECT_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
-// User model
 model User {
-  id            String          @id @default(uuid())
-  email         String          @unique
-  password      String
-  name          String
-  phone         String?
-  role          UserRole        @default(CUSTOMER)
-  status        AccountStatus   @default(ACTIVE)
-  metadata      Json?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  
-  // Relationships
-  virtualAccounts VirtualAccount[]
-  transactions    Transaction[]
-  points          Point[]
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String // Hashed password
+  name      String?
+  role      Role     @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  pointBalance       PointBalance?
+  virtualAccount     VirtualAccount?
+  transactions       Transaction[]
+  withdrawalRequests WithdrawalRequest[]
+
+  @@map("users")
 }
 
-// Virtual Account model
+model PointBalance {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balance   Int      @default(0) // Store points as integers
+  updatedAt DateTime @updatedAt
+
+  @@map("point_balances")
+}
+
 model VirtualAccount {
-  id                  String                @id @default(uuid())
-  userId              String
-  merchantId          String
-  provider            VirtualAccountProvider @default(EZPG)
-  bankCd              String
-  accountNo           String
-  accountName         String
-  fixYn               String
-  depositAmt          Decimal              @default(0) @db.Decimal(10, 2)
-  currency            String
-  status              VirtualAccountStatus @default(ACTIVE)
-  providerTransactionId String?
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @updatedAt
-  
-  // Relationships
-  user                User                 @relation(fields: [userId], references: [id])
-  transactions        Transaction[]
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountNumber   String   @unique // The virtual account number provided by EZPG
+  bankCode        String? // e.g., "004" (Optional if always the same)
+  bankName        String? // e.g., "Kookmin Bank" (Optional)
+  status          String   @default("ACTIVE") // ACTIVE, INACTIVE
+  ezpgReferenceId String? // Any ID EZPG provides upon creation
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("virtual_accounts")
 }
 
-// Transaction model
 model Transaction {
-  id                  String            @id @default(uuid())
-  userId              String
-  merchantId          String
-  virtualAccountId    String?
-  amount              Decimal           @db.Decimal(12, 0)
-  fee                 Decimal           @default(0) @db.Decimal(12, 0)
-  transactionType     TransactionType
-  status              TransactionStatus @default(PENDING)
-  moid                String?
-  providerTransactionId String?
-  bankTransactionId   String?
-  providerResponseCode String?
-  providerResponseMsg String?
-  metadata            Json?
-  createdAt           DateTime          @default(now())
-  updatedAt           DateTime          @updatedAt
-  
-  // Relationships
-  user                User              @relation(fields: [userId], references: [id])
-  virtualAccount      VirtualAccount?   @relation(fields: [virtualAccountId], references: [id])
-}
-
-// Point model
-model Point {
-  id           String              @id @default(uuid())
+  id           String          @id @default(uuid())
   userId       String
-  type         PointTransactionType
-  amount       Decimal             @db.Decimal(10, 2)
-  description  String
-  merchantId   String
-  createdAt    DateTime            @default(now())
-  updatedAt    DateTime            @updatedAt
-  
-  // Relationships
-  user         User                @relation(fields: [userId], references: [id])
+  user         User            @relation(fields: [userId], references: [id])
+  type         TransactionType
+  status       String // PENDING, PROCESSING, COMPLETED, FAILED, CANCELLED
+  amount       Int // Amount in KRW (for deposit/withdrawal) or points
+  pointsChange Int // Change in points (+/-)
+  description  String?
+  referenceId  String? // e.g., EZPG natvTrNo for withdrawals
+  metadata     Json? // Store raw notification payload if needed
+  createdAt    DateTime        @default(now())
+
+  @@index([userId])
+  @@map("transactions")
 }
 
-// Enums
-enum UserRole {
+model WithdrawalRequest {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  transactionId String? // Link to the corresponding Transaction record
+  bankCode      String // Customer's bank code
+  accountNumber String // Customer's bank account number (Consider encryption)
+  accountHolder String // Customer's name on the bank account
+  requestedAt   DateTime @default(now())
+  status        String // PENDING_APPROVAL, APPROVED, REJECTED (Internal status before calling EZPG)
+
+  @@index([userId])
+  @@map("withdrawal_requests")
+}
+
+enum Role {
   CUSTOMER
   MERCHANT
   ADMIN
-  SUPER_ADMIN
-}
-
-enum AccountStatus {
-  ACTIVE
-  INACTIVE
-  SUSPENDED
-}
-
-enum VirtualAccountProvider {
-  EZPG
-  DAESUN
-}
-
-enum VirtualAccountStatus {
-  ACTIVE
-  INACTIVE
-  EXPIRED
 }
 
 enum TransactionType {
-  deposit
-  withdrawal
-  transfer
-  fee
+  DEPOSIT // Points added from VA deposit
+  WITHDRAWAL_REQUEST // Customer requested points withdrawal (points deducted)
+  WITHDRAWAL_COMPLETED // EZPG confirmed bank transfer success
+  WITHDRAWAL_FAILED // EZPG confirmed bank transfer failure (points might be reverted)
+  POINTS_ADJUSTMENT // Manual points adjustment by admin/merchant
 }
-
-enum TransactionStatus {
-  pending
-  completed
-  failed
-  processing
-  refunded
-}
-
-enum PointTransactionType {
-  DEPOSIT
-  WITHDRAWAL
-  TRANSFER
-} 

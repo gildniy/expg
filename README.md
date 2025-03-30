@@ -1,154 +1,185 @@
- # EZPG Monorepo
+# EZPG Payment Integration
 
-This is a monorepo for the EZPG (Easy Payment Gateway) project, containing both the API and client applications.
+[English](README.md) | [한국어](README.ko.md)
 
-## What's Inside?
+This project integrates with the EZPG payment gateway to provide virtual account deposits and withdrawals for a points-based system.
 
-This monorepo uses [Turborepo](https://turbo.build/repo) and contains:
+## Project Structure
 
-- `apps/api`: A [NestJS](https://nestjs.com/) API with Prisma ORM
-- `apps/client`: A [Next.js](https://nextjs.org/) client application
-- `packages/shared`: Shared TypeScript code, types, and utilities
+This is a Turborepo-based monorepo with the standard directory structure:
+
+- **apps/** - Application directories
+  - **api** - NestJS backend that handles the EZPG integration, webhook processing, and business logic
+  - **client** - Next.js frontend for customer and merchant interfaces
+- **packages/** - Shared libraries and utilities that can be imported by applications
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18.x or later
-- npm 9.x or later
+- Node.js 16+ and Yarn
 - PostgreSQL database
+- EZPG merchant account and API credentials
 
-### Installation
+### Setup
 
 1. Clone the repository
-```bash
-git clone https://github.com/yourusername/ezpg.git
-cd ezpg
-```
+2. Install dependencies: `yarn install`
+3. Copy the `.env.example` to `.env` and update the environment variables
+4. Run database migrations: `npx prisma migrate dev`
+5. Start the development server: `yarn dev`
 
-2. Install dependencies
-```bash
-npm install
-```
+The API will be available at `http://localhost:3001/api/v1` and the Swagger documentation at `http://localhost:3001/api/v1/docs`.
 
-3. Set up environment variables
-```bash
-cp .env.example .env
-# Edit .env with your configuration
-```
-
-4. Set up the database with Prisma (recommended)
-```bash
-cd apps/api && npm run db:generate
-npm run db:migrate
-```
-
-Alternatively, if you need to use TypeORM:
-```bash
-# Change USE_PRISMA=false in your .env file
-cd apps/api && npm run db:typeorm:run
-```
-
-### Development
-
-Run the entire project in development mode:
-```bash
-npm run dev
-```
-
-This will start both the API server and Next.js client in parallel.
-
-- API will be available at http://localhost:3001
-- Client will be available at http://localhost:3000
-
-To open Prisma Studio for database management:
-```bash
-cd apps/api && npm run db:studio
-```
-
-You can also run each app individually:
-```bash
-# API only
-npm run dev --filter=api
-
-# Client only
-npm run dev --filter=client
-```
-
-### Building for Production
+## Using the Monorepo
 
 ```bash
-npm run build
+# Development - run all workspaces
+yarn dev
+
+# Build all applications
+yarn build
+
+# Start all applications in production mode
+yarn start
+
+# Run lint across all workspaces
+yarn lint
+
+# Run tests
+yarn test
+yarn test:e2e
+
+# Work with a specific workspace
+yarn workspace @ezpg/api dev
+yarn workspace @ezpg/client build
 ```
+
+## Environment Variables
+
+Make sure to set the following environment variables:
+
+```
+# Database
+DATABASE_URL=postgresql://...
+
+# EZPG Integration
+EZPG_MERCHANT_ID=your-ezpg-merchant-id
+EZPG_MERCHANT_KEY=your-ezpg-merchant-key
+EZPG_API_BASE_URL=https://api.ez-pg.com
+
+# JWT Authentication
+JWT_SECRET=your-secret-key
+JWT_EXPIRATION_TIME=1h
+
+# API Settings
+PORT=3001
+NODE_ENV=development
+FRONTEND_URL=http://localhost:3000
+```
+
+## API Documentation
+
+The API is fully documented using Swagger/OpenAPI. You can access the interactive documentation at:
+- Development: `http://localhost:3001/api/v1/docs`
+- Production: `https://your-domain.com/api/v1/docs`
+
+### Error Handling
+
+The API uses standardized error responses:
+
+```typescript
+{
+  statusCode: number;
+  message: string;
+  error: string;
+  details?: any;
+}
+```
+
+Common HTTP status codes:
+- 400: Bad Request - Invalid input
+- 401: Unauthorized - Missing or invalid authentication
+- 403: Forbidden - Insufficient permissions
+- 404: Not Found - Resource doesn't exist
+- 409: Conflict - Resource conflict
+- 500: Internal Server Error - Server-side error
+
+### API Endpoints
+
+#### Auth
+
+- `POST /api/v1/auth/register`: Register a new customer
+- `POST /api/v1/auth/login`: Login to get a JWT token
+- `GET /api/v1/auth/me`: Get the current user profile
+
+#### Customer
+
+- `GET /api/v1/customer/points`: Get the current point balance
+- `GET /api/v1/customer/virtual-account`: Get virtual account details
+- `POST /api/v1/customer/withdrawals/request`: Request a withdrawal 
+- `GET /api/v1/customer/transactions`: Get transaction history
+
+#### Merchant
+
+- `POST /api/v1/merchant/virtual-accounts`: Register a virtual account for a user
+- `GET /api/v1/merchant/transactions/:moid`: Search for a transaction
+
+#### Webhooks
+
+- `POST /api/v1/webhooks/ezpg/deposit-notification`: Handle deposit notifications
+- `POST /api/v1/webhooks/ezpg/withdrawal-notification`: Handle withdrawal notifications
 
 ## Testing
 
-```bash
-# Run tests for all packages and apps
-npm test
+The project includes comprehensive test coverage:
 
-# Run tests with coverage
-npm test -- --coverage
+### Unit Tests
+- Controllers and Services are tested in isolation
+- Mock implementations for external dependencies
+- Run with `yarn test`
 
-# Run tests for a specific project
-npm test --filter=api
-```
+### Integration Tests
+- Tests database interactions using Prisma
+- Transaction handling and rollbacks
+- Run with `yarn test:integration`
 
-## Project Structure
+### E2E Tests
+- Full API endpoint testing
+- Webhook processing validation
+- Run with `yarn test:e2e`
 
-```
-.
-├── apps
-│   ├── api                 # NestJS API application
-│   │   ├── prisma          # Prisma schema and migrations
-│   │   └── src             # API source code
-│   └── client              # Next.js client application
-├── packages
-│   └── shared              # Shared code between applications
-├── .env.example            # Example environment variables
-├── package.json            # Root package.json
-└── turbo.json              # Turborepo configuration
-```
+## EZPG Integration
 
-## Database Management
+### Deposit Flow
 
-We use Prisma as our primary ORM for its type safety and developer experience. Here are some common commands:
+1. Virtual account is assigned to a customer
+2. Customer deposits funds to the virtual account
+3. EZPG sends a deposit notification to our webhook
+4. System updates the customer's point balance
 
-```bash
-# Generate Prisma client after schema changes
-npm run db:generate --filter=api
+### Withdrawal Flow
 
-# Create a new migration
-npm run db:migrate --filter=api
+1. Customer requests a withdrawal with their bank details
+2. Points are deducted and a withdrawal request is sent to EZPG
+3. EZPG processes the bank transfer
+4. EZPG sends a withdrawal completion notification
+5. System updates the transaction status
 
-# Push schema changes directly to database (dev only)
-npm run db:push --filter=api
+## Adding New Applications
 
-# Reset database (caution: deletes all data)
-npm run db:reset --filter=api
+To add a new application to the monorepo:
 
-# Open Prisma Studio UI
-npm run db:studio --filter=api
-```
+1. Create a new directory under `apps/`
+2. Initialize the application with appropriate package.json
+3. Configure the application in turbo.json pipeline
 
-## Features
+To add a shared package:
 
-- **Authentication**: JWT-based authentication with Passport.js
-- **Virtual Accounts**: Create and manage virtual accounts for receiving payments
-- **Transactions**: Process and track financial transactions
-- **Points System**: Manage user reward/point system
-- **Admin Portal**: Administrative functionality for user management
-- **TypeORM/Prisma Support**: Flexible ORM choice with Prisma as default
-- **Supabase Integration**: Connect to Supabase using database URLs
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Create a new directory under `packages/`
+2. Initialize the package with appropriate package.json
+3. Add it as a dependency in the applications that need it
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is proprietary and confidential. 

@@ -1,1 +1,21 @@
- 
+{
+  "name": "@ezpg/database",
+  "version": "0.1.0",
+  "description": "Shared database schema and client for EZPG applications",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate",
+    "dev": "prisma generate --watch"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.4.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.4.2",
+    "typescript": "^5.2.2"
+  }
+} 
