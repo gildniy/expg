@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Patch, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
-import { ChangePasswordDto, LoginDto, RegisterDto } from '../dto/auth.dto';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User } from '../entities/user.entity';
+import { LoginDto, RegisterDto } from '../dto/auth.dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -16,35 +18,24 @@ export class AuthController {
   @ApiResponse({ status: 400, description: 'Invalid input data' })
   @ApiResponse({ status: 409, description: 'Email already exists' })
   async register(@Body() registerDto: RegisterDto) {
-    return await this.authService.register(registerDto);
+    return this.authService.register(registerDto);
   }
 
+  @UseGuards(LocalAuthGuard)
   @Post('login')
   @ApiOperation({ summary: 'Login user' })
   @ApiResponse({ status: 200, description: 'User successfully logged in' })
   @ApiResponse({ status: 401, description: 'Invalid credentials' })
   async login(@Body() loginDto: LoginDto) {
-    return await this.authService.login(loginDto);
+    return this.authService.login(loginDto);
   }
 
-  @Get('me')
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
+  @Get('profile')
   @ApiOperation({ summary: 'Get current user profile' })
   @ApiResponse({ status: 200, description: 'User profile retrieved successfully' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getProfile(@Request() req): Promise<User> {
-    return await this.authService.getProfile(req.user.id);
-  }
-
-  @Patch('change-password')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Change user password' })
-  @ApiResponse({ status: 200, description: 'Password changed successfully' })
-  @ApiResponse({ status: 400, description: 'Invalid current password' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async changePassword(@Request() req, @Body() changePasswordDto: ChangePasswordDto) {
-    return await this.authService.changePassword(req.user.id, changePasswordDto);
+  getProfile(@CurrentUser() user: User) {
+    return this.authService.getProfile(user.id);
   }
 }

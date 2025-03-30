@@ -215,4 +215,39 @@ export class AuthService {
     delete (userWithoutPassword as any).password;
     return userWithoutPassword as Omit<User, 'password'>;
   }
+
+  /**
+   * Validates a user's credentials for local strategy authentication
+   * 
+   * @param email - The user's email
+   * @param password - The user's password
+   * @returns The user object without password if valid, null otherwise
+   */
+  async validateUser(email: string, password: string): Promise<Omit<User, 'password'> | null> {
+    const user = await this.userRepository.findOne({
+      where: { email },
+      select: [
+        'id',
+        'email',
+        'password',
+        'name',
+        'phone',
+        'role',
+        'status',
+        'createdAt',
+        'updatedAt',
+      ],
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return null;
+    }
+
+    return this.excludePassword(user);
+  }
 }

@@ -532,4 +532,97 @@ describe('AuthService', () => {
       expect(result).toHaveProperty('role', mockUser.role);
     });
   });
+
+  describe('validateUser', () => {
+    it('should return user without password when credentials are valid', async () => {
+      const mockUser = {
+        id: 'user-id',
+        email: 'test@example.com',
+        password: 'hashed-password',
+        name: 'Test User',
+        role: UserRole.CUSTOMER,
+      };
+      
+      userRepository.findOne.mockResolvedValue(mockUser);
+      
+      const result = await service.validateUser('test@example.com', 'valid-password');
+      
+      expect(userRepository.findOne).toHaveBeenCalledWith({
+        where: { email: 'test@example.com' },
+        select: [
+          'id',
+          'email',
+          'password',
+          'name',
+          'phone',
+          'role',
+          'status',
+          'createdAt',
+          'updatedAt',
+        ],
+      });
+      
+      expect(bcrypt.compare).toHaveBeenCalledWith('valid-password', 'hashed-password');
+      expect(result).toBeDefined();
+      expect(Object.prototype.hasOwnProperty.call(result, 'password')).toBeFalsy();
+      expect(result.id).toBe('user-id');
+      expect(result.email).toBe('test@example.com');
+    });
+
+    it('should return null when user is not found', async () => {
+      userRepository.findOne.mockResolvedValue(null);
+      
+      const result = await service.validateUser('nonexistent@example.com', 'any-password');
+      
+      expect(userRepository.findOne).toHaveBeenCalledWith({
+        where: { email: 'nonexistent@example.com' },
+        select: [
+          'id',
+          'email',
+          'password',
+          'name',
+          'phone',
+          'role',
+          'status',
+          'createdAt',
+          'updatedAt',
+        ],
+      });
+      
+      expect(result).toBeNull();
+    });
+
+    it('should return null when password is invalid', async () => {
+      const mockUser = {
+        id: 'user-id',
+        email: 'test@example.com',
+        password: 'hashed-password',
+        name: 'Test User',
+        role: UserRole.CUSTOMER,
+      };
+      
+      userRepository.findOne.mockResolvedValue(mockUser);
+      jest.spyOn(bcrypt, 'compare').mockImplementationOnce(() => Promise.resolve(false));
+      
+      const result = await service.validateUser('test@example.com', 'invalid-password');
+      
+      expect(userRepository.findOne).toHaveBeenCalledWith({
+        where: { email: 'test@example.com' },
+        select: [
+          'id',
+          'email',
+          'password',
+          'name',
+          'phone',
+          'role',
+          'status',
+          'createdAt',
+          'updatedAt',
+        ],
+      });
+      
+      expect(bcrypt.compare).toHaveBeenCalledWith('invalid-password', 'hashed-password');
+      expect(result).toBeNull();
+    });
+  });
 });

@@ -1,15 +1,15 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 // REST Modules
-import { AuthModule } from './rest/modules/auth.module';
-import { VirtualAccountModule } from './rest/modules/virtual-account.module';
-import { TransactionModule } from './rest/modules/transaction.module';
-import { PointModule } from './rest/modules/point.module';
-import { SupportTicketModule } from './rest/modules/support-ticket.module';
+import { AuthModule } from './auth/auth.module';
+import { VirtualAccountModule } from './modules/virtual-account.module';
+import { TransactionModule } from './modules/transaction.module';
+import { PointModule } from './modules/point.module';
+import { SupportTicketModule } from './modules/support-ticket.module';
 import { AdminModule } from './modules/admin.module';
 
 // Prisma Module
@@ -29,15 +29,16 @@ import { Point } from './entities/point.entity';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
-      entities: [User, VirtualAccount, Transaction, Point],
-      synchronize: process.env.NODE_ENV !== 'production',
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        url: configService.get('DATABASE_URL'),
+        entities: [User, VirtualAccount, Transaction, Point],
+        synchronize: configService.get('NODE_ENV') !== 'production',
+        ssl: configService.get('NODE_ENV') === 'production' ? { rejectUnauthorized: false } : false,
+      }),
     }),
     // Security Module
     SecurityModule,

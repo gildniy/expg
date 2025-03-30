@@ -1,182 +1,225 @@
 # EZPG API
 
-This is the backend API for the EZPG Virtual Account service. It provides endpoints for managing virtual accounts, transactions, points, and support tickets.
+The EZPG API is a powerful and scalable backend service built with NestJS, designed to handle virtual account management, payments, and user authentication.
 
 ## Features
 
-- User Authentication and Authorization
-- Virtual Account Management
-- Transaction Processing
-- Point System
-- Support Ticket System
-- Role-based Access Control
+- **Authentication**: Secure JWT-based authentication with role-based access control
+- **Virtual Accounts**: Create and manage virtual accounts for receiving payments
+- **Transactions**: Process and track financial transactions
+- **Points System**: Manage user reward/point system
+- **Admin Portal**: Administrative functionality for user management
+- **Dual ORM Support**: Seamless switching between TypeORM and Prisma
+- **Supabase Integration**: Connect to Supabase using database URLs
 
-## Prerequisites
+## Tech Stack
+
+- **Framework**: NestJS
+- **Database**: PostgreSQL with TypeORM or Prisma
+- **Cloud Database**: Supabase support
+- **Authentication**: JWT (JSON Web Tokens) with Passport.js
+- **Validation**: Class-validator and class-transformer
+- **Testing**: Jest with 100% test coverage
+
+## Getting Started
+
+### Prerequisites
 
 - Node.js (v16 or later)
-- PostgreSQL (v12 or later)
-- EZPG Service API Key
+- npm or yarn
+- PostgreSQL or Supabase account
 
-## Installation
+### Installation
 
-1. Clone the repository:
+1. Clone the repository
 ```bash
 git clone https://github.com/yourusername/ezpg.git
 cd ezpg/apps/api
 ```
 
-2. Install dependencies:
+2. Install dependencies
 ```bash
 npm install
 ```
 
-3. Create a PostgreSQL database:
-```bash
-createdb ezpg
-```
-
-4. Configure environment variables:
+3. Set up environment variables
 ```bash
 cp .env.example .env
 # Edit .env with your configuration
 ```
 
-## Running the Application
+4. Database Setup
+   
+   a. For TypeORM (default):
+   ```bash
+   # Update .env with database credentials or URL
+   # Set USE_PRISMA=false
+   npm run migration:run
+   ```
+   
+   b. For Prisma with local PostgreSQL:
+   ```bash
+   # Update .env with DATABASE_URL
+   # Set USE_PRISMA=true
+   npx prisma generate
+   npx prisma migrate dev
+   ```
+   
+   c. For Prisma with Supabase:
+   ```bash
+   # Update .env with DATABASE_URL and DIRECT_URL from Supabase
+   # Set USE_PRISMA=true
+   # Configure SUPABASE_URL and SUPABASE_ANON_KEY
+   npx prisma generate
+   npx prisma db push
+   ```
 
-### Development
+5. Start the development server
 ```bash
 npm run start:dev
 ```
 
-### Production
-```bash
-npm run build
-npm run start:prod
+## Database Configuration
+
+### Using Database URLs
+
+You can configure the database connection using a single URL instead of individual parameters:
+
+```
+# .env
+DATABASE_URL=postgresql://user:password@host:port/database
+```
+
+### Supabase Configuration
+
+For Supabase integration, add the following to your .env file:
+
+```
+SUPABASE_URL=https://[PROJECT-REF].supabase.co
+SUPABASE_ANON_KEY=[YOUR-ANON-KEY]
+DATABASE_URL=postgres://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
+DIRECT_URL=postgres://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
+USE_PRISMA=true
+```
+
+### Switching between ORMs
+
+The application supports both TypeORM and Prisma. Set the `USE_PRISMA` environment variable to switch:
+
+```
+# For TypeORM
+USE_PRISMA=false
+
+# For Prisma
+USE_PRISMA=true
 ```
 
 ## API Documentation
 
-The API documentation is available at `http://localhost:3000/api` when running the application.
+API documentation is available at `/api/docs` when the server is running (using Swagger).
+
+### Key Endpoints
+
+- **Authentication**
+  - `POST /auth/login`: User login
+  - `POST /auth/register`: User registration
+  - `GET /auth/profile`: Get authenticated user profile
+
+- **Virtual Accounts**
+  - `GET /virtual-accounts`: Get all virtual accounts for the user
+  - `POST /virtual-accounts`: Create a new virtual account
+  - `GET /virtual-accounts/:id`: Get a virtual account by ID
+
+- **Transactions**
+  - `GET /transactions`: Get all transactions for the user
+  - `POST /transactions`: Create a new transaction
+  - `GET /transactions/:id`: Get a transaction by ID
+
+- **Points**
+  - `GET /points`: Get point balance and history
+  - `POST /points`: Award points to a user
+
+- **Admin**
+  - `GET /admin/users`: Get all users (admin only)
+  - `PATCH /admin/users/:id`: Update user details (admin only)
+
+## Authentication
+
+The API uses JWT-based authentication with Passport.js. Two strategies are available:
+
+- **Local Strategy**: For username/password login
+- **JWT Strategy**: For token-based authentication
+
+Role-based access control is implemented using guards and decorators.
 
 ## Testing
 
-```bash
-# Unit tests
-npm run test
+The project has comprehensive test coverage to ensure reliability and stability.
 
-# e2e tests
-npm run test:e2e
+### Running Tests
+
+Run all tests:
+```bash
+npm test
+```
+
+Run tests with coverage:
+```bash
+npm test -- --coverage
 ```
 
 ## Project Structure
 
 ```
-src/
-├── controllers/     # Request handlers
-├── services/       # Business logic
-├── entities/       # Database models
-├── modules/        # Feature modules
-├── guards/         # Authentication guards
-├── decorators/     # Custom decorators
-├── strategies/     # Passport strategies
-└── main.ts         # Application entry point
+apps/api/
+├── src/                  # Source code
+│   ├── controllers/      # API controllers
+│   ├── auth/             # Authentication strategies, guards, and decorators
+│   ├── dto/              # Data Transfer Objects
+│   ├── entities/         # TypeORM entities
+│   ├── guards/           # Authentication guards
+│   ├── services/         # Business logic
+│   └── main.ts           # Application entry point
+├── prisma/               # Prisma schema and migrations
+├── test/                 # Test files
+├── dist/                 # Compiled output
+└── README.md             # This file
+```
+
+## Development Guides
+
+### Creating a New Endpoint
+
+1. Create DTO(s) in the `src/dto` directory
+2. Create or update an entity in `src/entities` if needed
+3. Update Prisma schema if using Prisma
+4. Implement business logic in a service
+5. Create a controller to expose the API
+6. Add appropriate tests
+
+### Database Migrations
+
+TypeORM migrations:
+```bash
+npm run migration:generate -- -n MigrationName
+npm run migration:run
+npm run migration:revert  # Revert the last migration
+```
+
+Prisma migrations:
+```bash
+npx prisma migrate dev --name migration_name
+npx prisma migrate deploy  # For production
 ```
 
 ## Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Implement your changes
+4. Add or update tests (maintain 100% coverage)
+5. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Admin User Management
-
-The EZPG API now includes role-based user management with a hierarchy of roles:
-
-- **SUPER_ADMIN**: Highest level role with full system access, including admin management
-- **ADMIN**: System administrators who can manage merchants and general system operations
-- **MERCHANT**: Business users who provide services through the platform
-- **CUSTOMER**: Regular users who use the platform services
-
-### Getting Started with Admin Access
-
-#### Setting Up the Super Admin
-
-Before you can use the admin functionality, you need to create a Super Admin user. This can be done using the provided seed script:
-
-1. Configure Super Admin credentials in your environment variables (optional):
-   ```
-   SUPER_ADMIN_EMAIL=your-email@example.com
-   SUPER_ADMIN_PASSWORD=securePassword123
-   SUPER_ADMIN_NAME=Your Name
-   ```
-
-2. Run the seed script to create the Super Admin user:
-   ```
-   npm run seed:db
-   ```
-
-   If you don't provide custom environment variables, a default Super Admin will be created with:
-   - Email: super-admin@example.com
-   - Password: superAdminPassword123
-   - Name: Super Admin
-
-#### Managing Admins and Merchants
-
-Once you have a Super Admin account, you can:
-
-1. **Register New Admins** (Super Admin only):
-   ```
-   POST /admin/users/register-admin
-   {
-     "email": "admin@example.com",
-     "password": "securePassword123",
-     "name": "Admin User",
-     "phone": "+1234567890" (optional)
-   }
-   ```
-
-2. **Register New Merchants** (Admin or Super Admin):
-   ```
-   POST /admin/users/register-merchant
-   {
-     "email": "merchant@example.com",
-     "password": "securePassword123",
-     "name": "Merchant Business",
-     "phone": "+1234567890" (optional),
-     "metadata": {
-       "businessType": "Retail",
-       "taxId": "123-45-6789"
-     } (optional)
-   }
-   ```
-
-### Authentication
-
-All admin endpoints require a valid JWT token with the appropriate role. To authenticate:
-
-1. Login with your admin credentials:
-   ```
-   POST /auth/login
-   {
-     "email": "your-admin-email@example.com",
-     "password": "yourPassword"
-   }
-   ```
-
-2. Use the returned access token in the Authorization header for all admin requests:
-   ```
-   Authorization: Bearer your-access-token
-   ```
-
-### Security Considerations
-
-- Always use strong passwords for admin and super admin accounts
-- Regularly rotate admin passwords
-- Use HTTPS for all API communication
-- Consider implementing additional security measures like IP restrictions or multi-factor authentication for admin accounts 
+This project is licensed under the MIT License - see the LICENSE file for details. 
